@@ -3,129 +3,28 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title></title>
+        <title>Holly's Web Games</title>
+
+        <style>
+            a
+            {
+                display:block;
+                text-align:center;
+            }
+        </style>
 
     </head>
     <body>
-        <div style="width:300px"><h1 style="text-align:center">Tic-Tac-Toe</h1></div>
-        <table class="ClickSquare" border="0" style="border-collapse:collapse" >
-            <tr height="100px">
-                <td width="100">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="ltBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
-                <td width="100" style="border-left:5px solid red; border-right: 5px solid red;">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="mtBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
-                <td width="100">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="rtBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
+        <h1>Holly's Web Games</h1>
+        <table border="1" style="border-collapse:collapse">
+            <tr>
+                <td><img src="TICTACTOE_LOGO.jpg" alt="Tic-Tac-Toe"></img></td>
+                <td><img src="YAHTZEE_LOGO.jpg" alt="YAHTZEE"></img></td>
             </tr>
-            <tr height ="100px" style="border-top:5px solid red;border-bottom: 5px solid red;">
-                <td width="100">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="lmBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
-                <td width="100"style="border-left:5px solid red; border-right: 5px solid red;">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="mmBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
-                <td width="100">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="rmBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
-            </tr>
-            <tr height ="100px">
-                <td width="100">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="lbBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
-                <td width="100" style="border-left:5px solid red; border-right: 5px solid red;">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="mbBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
-                <td width="100">
-                    <img onclick="makeMove(this.id)" onmouseover="drawQ(this.id)" onmouseout="drawExit(this.id)" id="rbBoxImg" src="FREE.jpg" width="100px" height="100px"/>
-                </td>
+            <tr>
+                <td><a href="PlayTicTacToe.html">Tic-Tac-Toe</a></td>
+                <td><a href="PlayYahtzee.html">Yahtzee</a></td>
             </tr>
         </table>
-        
-        <button type="button" onclick="newGame()">New Game</button>
-
-        <script>
-            var ltVal, mtVal, rtVal, lmVal, mmVal, rmVal, lbVal, mbVal, rbVal;
-            ltVal = mtVal = rtVal = lmVal = mmVal = rmVal = lbVal = mbVal = rbVal = "FREE";
-
-            var player = 'X'
-
-            function makeMove(idString) {
-                if(getCurrent(idString) != "FREE"){return;}
-
-                if (player == "X") { document.getElementById(idString).src = "X.jpg"; }
-                if (player == "O") { document.getElementById(idString).src = "O.jpg"; }
-                if (idString == "ltBoxImg") { ltVal = player; }
-                if (idString == "mtBoxImg") { mtVal = player; }
-                if (idString == "rtBoxImg") { rtVal = player; }
-                if (idString == "lmBoxImg") { lmVal = player; }
-                if (idString == "mmBoxImg") { mmVal = player; }
-                if (idString == "rmBoxImg") { rmVal = player; }
-                if (idString == "lbBoxImg") { lbVal = player; }
-                if (idString == "mbBoxImg") { mbVal = player; }
-                if (idString == "rbBoxImg") { rbVal = player; }
-
-                if(player == 'X'){player = 'O'}
-                else if(player == 'O'){player = 'X'}
-                checkForEndOfGame();
-            }
-            function drawX(idString) {
-                document.getElementById(idString).src = "X.jpg";
-            }
-            function drawQ(idString) {
-                if(getCurrent(idString) == "FREE")
-                    document.getElementById(idString).src = "Q.jpg";
-            }
-            function drawExit(idString) {
-                if (getCurrent(idString) == "X") { document.getElementById(idString).src = "X.jpg"; }
-                if (getCurrent(idString) == "O") { document.getElementById(idString).src = "O.jpg"; }
-                if (getCurrent(idString) == "FREE") { document.getElementById(idString).src = "FREE.jpg"; }
-            }
-            function getCurrent(idString) {
-                if (idString == "ltBoxImg") { return ltVal; }
-                if (idString == "mtBoxImg") { return mtVal; }
-                if (idString == "rtBoxImg") { return rtVal; }
-                if (idString == "lmBoxImg") { return lmVal; }
-                if (idString == "mmBoxImg") { return mmVal; }
-                if (idString == "rmBoxImg") { return rmVal; }
-                if (idString == "lbBoxImg") { return lbVal; }
-                if (idString == "mbBoxImg") { return mbVal; }
-                if (idString == "rbBoxImg") { return rbVal; }
-            }
-            function checkForEndOfGame()
-            {
-                if(ltVal == mtVal && mtVal == rtVal && ltVal != "FREE") {alert(ltVal + " WINS!!!");}
-                else if(lmVal == mmVal && mmVal == rmVal && lmVal != "FREE") {alert(lmVal + " WINS!!!");}
-                else if(lbVal == mbVal && mbVal == rbVal && lbVal != "FREE") {alert(lbVal + " WINS!!!");}
-
-                else if(ltVal == lmVal && lmVal == lbVal && ltVal != "FREE") {alert(ltVal + " WINS!!!");}
-                else if(mtVal == mmVal && mmVal == rtVal && mbVal != "FREE") {alert(mtVal + " WINS!!!");}
-                else if(rtVal == rmVal && rmVal == rbVal && rtVal != "FREE") {alert(rtVal + " WINS!!!");}
-
-                else if(ltVal == mmVal && mmVal == rbVal && ltVal != "FREE") {alert(ltVal + " WINS!!!");}
-                else if(rtVal == mmVal && mmVal == lbVal && rtVal != "FREE") {alert(rtVal + " WINS!!!");}
-
-                else if(ltVal != "FREE" && mtVal != "FREE" && rtVal != "FREE" &&
-                        lmVal != "FREE" && mmVal != "FREE" && rmVal != "FREE" &&
-                        lbVal != "FREE" && mbVal != "FREE" && rbVal != "FREE")
-                {alert("TIE!")} 
-            }
-            function newGame()
-            {
-                ltVal = mtVal = rtVal = lmVal = mmVal = rmVal = lbVal = mbVal = rbVal = "FREE";    
-
-                document.getElementById("ltBoxImg").src = "FREE.jpg"
-                document.getElementById("mtBoxImg").src = "FREE.jpg"
-                document.getElementById("rtBoxImg").src = "FREE.jpg"
-                document.getElementById("lmBoxImg").src = "FREE.jpg"
-                document.getElementById("mmBoxImg").src = "FREE.jpg"
-                document.getElementById("rmBoxImg").src = "FREE.jpg"
-                document.getElementById("lbBoxImg").src = "FREE.jpg"
-                document.getElementById("mbBoxImg").src = "FREE.jpg"
-                document.getElementById("rbBoxImg").src = "FREE.jpg"
-            }
-        </script>
     </body>
 </html>
