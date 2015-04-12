@@ -11,20 +11,57 @@
                 display:block;
                 text-align:center;
             }
+            div#heading
+            {
+                background-color: #00628B;
+                color: #E6E6DC;
+                height: 75px;
+            }
+            div#content
+            {
+                background-color: #E6E6DC;
+            }
+            div#footer
+            {
+                background-color: #00628B;
+                color: #E6E6DC;
+            }
         </style>
 
     </head>
     <body>
-        <h1>Holly's Web Games</h1>
-        <table border="1" style="border-collapse:collapse">
-            <tr>
-                <td><img src="TICTACTOE_LOGO.jpg" alt="Tic-Tac-Toe"></img></td>
-                <td><img src="YAHTZEE_LOGO.jpg" alt="YAHTZEE"></img></td>
-            </tr>
-            <tr>
-                <td><a href="PlayTicTacToe.html">Tic-Tac-Toe</a></td>
-                <td><a href="PlayYahtzee.html">Yahtzee</a></td>
-            </tr>
-        </table>
+        <div id="heading">
+            <h1 style="text-align:center; position: relative; top: 25%">Holly's Web Games</h1>
+        </div>
+
+        <div id="content">
+            </br>
+            <table border="1" align="center" style="border-collapse:collapse; background-color: #fff;">
+                <tr>
+                    <td><img src="TICTACTOE_LOGO.jpg" alt="Tic-Tac-Toe"></img></td>
+                    <td><img src="YAHTZEE_LOGO.jpg" alt="YAHTZEE"></img></td>
+                </tr>
+                <tr>
+                    <td><a href="PlayTicTacToe.html">Tic-Tac-Toe</a></td>
+                    <td><a href="PlayYahtzee.html">Yahtzee</a></td>
+                </tr>
+                <tr>
+                    <td style="color: #4cff00; text-align:center">COMPLETE</td>
+                    <td style="color: #f00; text-align:center">WORK IN PROGREESS</td>
+                </tr>
+            </table>
+            </br>
+        </div>
+
+        <div id="footer">
+            <h3 style="text-align:center">Release Notes</h3>
+            <table border="1" align="center">
+                <tr><th>Date</th><th>Notes</th></tr>
+
+                <tr><td>4/11/15</td><td>Nightly Commit: Working though Yahtzee, setting up scoring.</br>Minor UI Changes.</td></tr>
+                <tr><td>4/11/15</td><td>Made main page Prettier. Fixed Some Bugs in Yahtzee.</td></tr>
+                <tr><td>4//11/15</td><td>Inital Commit</td></tr>
+            </table>
+        </div>
     </body>
 </html>
