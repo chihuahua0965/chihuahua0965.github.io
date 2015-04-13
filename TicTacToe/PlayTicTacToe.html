@@ -53,7 +53,7 @@
             var player = 'X'
 
             function makeMove(idString) {
-                if(getCurrent(idString) != "FREE"){return;}
+                if (getCurrent(idString) != "FREE") { return; }
 
                 if (player == "X") { document.getElementById(idString).src = "X.jpg"; }
                 if (player == "O") { document.getElementById(idString).src = "O.jpg"; }
@@ -67,15 +67,15 @@
                 if (idString == "mbBoxImg") { mbVal = player; }
                 if (idString == "rbBoxImg") { rbVal = player; }
 
-                if(player == 'X'){player = 'O'}
-                else if(player == 'O'){player = 'X'}
+                if (player == 'X') { player = 'O' }
+                else if (player == 'O') { player = 'X' }
                 checkForEndOfGame();
             }
             function drawX(idString) {
                 document.getElementById(idString).src = "X.jpg";
             }
             function drawQ(idString) {
-                if(getCurrent(idString) == "FREE")
+                if (getCurrent(idString) == "FREE")
                     document.getElementById(idString).src = "Q.jpg";
             }
             function drawExit(idString) {
@@ -94,27 +94,27 @@
                 if (idString == "mbBoxImg") { return mbVal; }
                 if (idString == "rbBoxImg") { return rbVal; }
             }
-            function checkForEndOfGame()
-            {
-                if(ltVal == mtVal && mtVal == rtVal && ltVal != "FREE") {alert(ltVal + " WINS!!!");}
-                else if(lmVal == mmVal && mmVal == rmVal && lmVal != "FREE") {alert(lmVal + " WINS!!!");}
-                else if(lbVal == mbVal && mbVal == rbVal && lbVal != "FREE") {alert(lbVal + " WINS!!!");}
+            function checkForEndOfGame() {
+                alert(mtVal + " " + mmVal + " " + mbVal);
 
-                else if(ltVal == lmVal && lmVal == lbVal && ltVal != "FREE") {alert(ltVal + " WINS!!!");}
-                else if(mtVal == mmVal && mmVal == rtVal && mbVal != "FREE") {alert(mtVal + " WINS!!!");}
-                else if(rtVal == rmVal && rmVal == rbVal && rtVal != "FREE") {alert(rtVal + " WINS!!!");}
+                if (ltVal == mtVal && mtVal == rtVal && ltVal != "FREE") { alert(ltVal + " WINS!!!"); }
+                else if (lmVal == mmVal && mmVal == rmVal && lmVal != "FREE") { alert(lmVal + " WINS!!!"); }
+                else if (lbVal == mbVal && mbVal == rbVal && lbVal != "FREE") { alert(lbVal + " WINS!!!"); }
 
-                else if(ltVal == mmVal && mmVal == rbVal && ltVal != "FREE") {alert(ltVal + " WINS!!!");}
-                else if(rtVal == mmVal && mmVal == lbVal && rtVal != "FREE") {alert(rtVal + " WINS!!!");}
+                else if (ltVal == lmVal && lmVal == lbVal && ltVal != "FREE") { alert(ltVal + " WINS!!!"); }
+                else if (mtVal == mmVal && mmVal == mbVal && mbVal != "FREE") { alert(mtVal + " WINS!!!"); }
+                else if (rtVal == rmVal && rmVal == rbVal && rtVal != "FREE") { alert(rtVal + " WINS!!!"); }
 
-                else if(ltVal != "FREE" && mtVal != "FREE" && rtVal != "FREE" &&
+                else if (ltVal == mmVal && mmVal == rbVal && ltVal != "FREE") { alert(ltVal + " WINS!!!"); }
+                else if (rtVal == mmVal && mmVal == lbVal && rtVal != "FREE") { alert(rtVal + " WINS!!!"); }
+
+                else if (ltVal != "FREE" && mtVal != "FREE" && rtVal != "FREE" &&
                         lmVal != "FREE" && mmVal != "FREE" && rmVal != "FREE" &&
                         lbVal != "FREE" && mbVal != "FREE" && rbVal != "FREE")
-                {alert("TIE!")} 
+                { alert("TIE!") }
             }
-            function newGame()
-            {
-                ltVal = mtVal = rtVal = lmVal = mmVal = rmVal = lbVal = mbVal = rbVal = "FREE";    
+            function newGame() {
+                ltVal = mtVal = rtVal = lmVal = mmVal = rmVal = lbVal = mbVal = rbVal = "FREE";
 
                 document.getElementById("ltBoxImg").src = "FREE.jpg"
                 document.getElementById("mtBoxImg").src = "FREE.jpg"
@@ -125,6 +125,8 @@
                 document.getElementById("lbBoxImg").src = "FREE.jpg"
                 document.getElementById("mbBoxImg").src = "FREE.jpg"
                 document.getElementById("rbBoxImg").src = "FREE.jpg"
+
+                player = 'X';
             }
         </script>
     </body>
