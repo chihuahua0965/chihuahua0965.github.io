@@ -24,7 +24,10 @@
 
     </head>
     <body>
-        <h1>YAHTZEE</h1>
+        <div>
+            <h1 style="margin-bottom:2px">YAHTZEE</h1>
+            <button type="button" style="margin-bottom: 5px" onclick="newGame()">New Game</button>
+        </div>
         <div style="float:left;background-color:#0ff;">
             <table border="1"  style="border-collapse:collapse;">
                 <tr>
@@ -65,17 +68,17 @@
                 <tr>
                     <td>Top Total:</td>
                     <td></td>
-                    <td></td>
+                    <td id="topTotal"></td>
                 </tr>
                 <tr>
                     <td>Bonus:</td>
                     <td>Score 35</br>If total score</br>Is 63 or Over</td>
-                    <td></td>
+                    <td id="bonus"></td>
                 </tr>
                 <tr style="border-bottom:3px solid black">
                     <td>Final Top Total</td>
                     <td></td>
-                    <td></td>
+                    <td id="finalTopTotal"></td>
                 </tr>
                 <tr>
                     <td>3 of a Kind</td>
@@ -115,29 +118,29 @@
                 <tr>
                     <td>Lower Total</td>
                     <td></td>
-                    <td></td>
+                    <td id="bottomTotal"></td>
                 </tr>
                 <tr>
                     <td>Upper Total</td>
                     <td></td>
-                    <td></td>
+                    <td id="finalTopTotal2"></td>
                 </tr>
                 <tr>
                     <td>Grand Total</td>
                     <td></td>
-                    <td></td>
+                    <td id="grandTotal"></td>
                 </tr>
             </table>
         </div>
-        <div style="width:400px; height:300px; background-color:#00ff21; float:left">
+        <div style="width:400px; height:375px; background-color:#00ff21; float:left">
             <h2 style="text-align:center">Your Roll</h2>
             <table border="1" style="margin:auto">
                 <tr>
-                    <td class="dice"><img id="roll1" onclick="holdDie(1)"></img></td>
-                    <td class="dice"><img id="roll2" onclick="holdDie(2)"></img></td>
-                    <td class="dice"><img id="roll3" onclick="holdDie(3)"></img></td>
-                    <td class="dice"><img id="roll4" onclick="holdDie(4)"></img></td>
-                    <td class="dice"><img id="roll5" onclick="holdDie(5)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id ="roll1" onclick="holdDie(1)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="roll2" onclick="holdDie(2)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="roll3" onclick="holdDie(3)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="roll4" onclick="holdDie(4)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="roll5" onclick="holdDie(5)"></img></td>
                 </tr>
             </table>
 
@@ -145,22 +148,18 @@
             <h2 style="text-align:center">HOLD</h2>
             <table border="1" style="margin:auto">
                 <tr>
-                    <td class="dice"><img id="hold1" onclick="unHoldDie(1)"></img></td>
-                    <td class="dice"><img id="hold2" onclick="unHoldDie(2)"></img></td>
-                    <td class="dice"><img id="hold3" onclick="unHoldDie(3)"></img></td>
-                    <td class="dice"><img id="hold4" onclick="unHoldDie(4)"></img></td>
-                    <td class="dice"><img id="hold5" onclick="unHoldDie(5)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="hold1" onclick="unHoldDie(1)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="hold2" onclick="unHoldDie(2)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="hold3" onclick="unHoldDie(3)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="hold4" onclick="unHoldDie(4)"></img></td>
+                    <td class="dice"><img src="blank.jpg" id="hold5" onclick="unHoldDie(5)"></img></td>
                 </tr>
             </table>
 
             </br>
-            <button type="button" align="center" onclick="roll()" style="height: 50px; width:75px; font-size: large;">Roll</button>
-            <span id="rollsRemain" style="font-size:large">Rolls Remaining (3)</span>
+            <button type="button" onclick="roll()" style="height: 50px; width:75px; font-size: large; display: block; margin: 0 auto;">Roll</button>
+            <span id="rollsRemain" style="font-size:large; display:block; text-align:center">Rolls Remaining (3)</span>
         </div>
-
-        <p>Disclamer: Work in progress: Note this program is not yet complete, feel free to play around to see what works.</p>
-
-
         <script>
             var rollNum = 0;
             var bHolds = [false, false, false, false, false];
@@ -174,13 +173,52 @@
                 smStraight: false, lgStraight: false, yahtzee: false, chance: false
             };
 
+            function newGame() {
+                rollNum = 0;
+                scores.aces = scores.twos = scores.threes = scores.fours = scores.fives = scores.sixes = scores.threeOfKind = 0;
+                scores.fourOfKind = scores.fullHouse = scores.smStraight = scores.lgStraight = scores.yahtzee = scores.chance = 0;
+                scoreComplete.aces = scoreComplete.twos = scoreComplete.threes = scoreComplete.fours = scoreComplete.fives = false;
+                scoreComplete.sixes = scoreComplete.threeOfKind = scoreComplete.fourOfKind = scoreComplete.fullHouse = false;
+                scoreComplete.smStraight = scoreComplete.lgStraight = scoreComplete.yahtzee = scoreComplete.chance = false;
+
+                for (i = 0; i < 5; i++) {
+                    bHolds[i] = false;
+                    dieVals[i] = 0;
+                    var holdId = "hold" + (i + 1);
+                    var rollId = "roll" + (i + 1);
+                    document.getElementById(holdId).src = "blank.jpg";
+                    document.getElementById(rollId).src = "blank.jpg";
+                }
+
+                resetScore("acesScore");
+                resetScore("twosScore");
+                resetScore("threesScore");
+                resetScore("foursScore");
+                resetScore("fivesScore");
+                resetScore("sixesScore");
+
+                resetScore("threeOfKindScore");
+                resetScore("fourOfKindScore");
+                resetScore("fullHouseScore");
+                resetScore("smStraightScore");
+                resetScore("lgStraightScore");
+                resetScore("yahtzeeScore");
+                resetScore("chanceScore");
+            }
+
+            function resetScore(id) {
+                document.getElementById(id).innerHTML = "";
+                document.getElementById(id).style.color = "red";
+                document.getElementById(id).style.fontWeight = "100";
+            }
+
             function holdDie(index) {
                 if (rollNum == 0) { return; }
                 if (bHolds[index - 1]) { return; }
                 var holdId = "hold" + index;
                 var rollId = "roll" + index;
                 document.getElementById(holdId).src = document.getElementById(rollId).src;
-                document.getElementById(rollId).src = "";
+                document.getElementById(rollId).src = "blank.jpg";
                 bHolds[index - 1] = true;
             }
 
@@ -190,7 +228,7 @@
                 var holdId = "hold" + index;
                 var rollId = "roll" + index;
                 document.getElementById(rollId).src = document.getElementById(holdId).src;
-                document.getElementById(holdId).src = "";
+                document.getElementById(holdId).src = "blank.jpg";
                 bHolds[index - 1] = false;
             }
 
@@ -227,7 +265,7 @@
             }
 
             function randomDieRoll() {
-                return Math.floor((Math.random() * 5) + 1);
+                return Math.floor((Math.random() * 6) + 1);
             }
 
             function fillPossibleScores() {
@@ -245,23 +283,6 @@
                 if (scoreComplete.lgStraight == false) { document.getElementById("lgStraightScore").innerHTML = scoreLgStraight(); }
                 if (scoreComplete.yahtzee == false) { document.getElementById("yahtzeeScore").innerHTML = scoreYahtzee(); }
                 if (scoreComplete.chance == false) { document.getElementById("chanceScore").innerHTML = scoreChance(); }
-            }
-
-            function fillScores() {
-                document.getElementById("acesScore").innerHTML = scores.aces;
-                document.getElementById("twosScore").innerHTML = scores.twos;
-                document.getElementById("threesScore").innerHTML = scores.threes;
-                document.getElementById("foursScore").innerHTML = scores.fours;
-                document.getElementById("fivesScore").innerHTML = scores.fives;
-                document.getElementById("sixesScore").innerHTML = scores.sixes;
-
-                document.getElementById("threeOfKindScore").innerHTML = scores.threeOfKind;
-                document.getElementById("fourOfKindScore").innerHTML = scores.fourOfKind;
-                document.getElementById("fullHouseScore").innerHTML = scores.fullHouse;
-                document.getElementById("smStraightScore").innerHTML = scores.smStraight;
-                document.getElementById("lgStraightScore").innerHTML = scores.lgStraight;
-                document.getElementById("yahtzeeScore").innerHTML = scores.yahtzee;
-                document.getElementById("chanceScore").innerHTML = scores.chance;
             }
 
             function calculateTopScore(die) {
@@ -349,8 +370,7 @@
 
             function scoreYahtzee() {
                 var score = 0;
-                if (tempDie[0] == tempDie[1] && tempDie[1] == tempDie[2] && tempDie[2] == tempDie[3] && tempDie[3] == tempDie[4]) {
-
+                if (dieVals[0] == dieVals[1] && dieVals[1] == dieVals[2] && dieVals[2] == dieVals[3] && dieVals[3] == dieVals[4]) {
                     score = 50;
                 }
                 return score;
@@ -361,6 +381,7 @@
             }
 
             function selectScore(id) {
+
                 if (rollNum == 0) { return; }
                 if (scoreAvailable(id) == false) {
                     alert("You already socred that Column!")
@@ -372,6 +393,8 @@
                     document.getElementById(id).style.color = "black";
                     rollNum = 0;
                     clearPossibleScores();
+                    updateTotals();
+                    checkForGameOver();
                     document.getElementById("rollsRemain").innerHTML = "Rolls Remaining (" + (3 - rollNum) + ")";
                 }
             }
@@ -387,7 +410,7 @@
                 if (id == "threeOfKindScore") { return !scoreComplete.threeOfKind; }
                 if (id == "fourOfKindScore") { return !scoreComplete.fourOfKind; }
                 if (id == "fullHouseScore") { return !scoreComplete.fullHouse; }
-                if (id == "smStrightScore") { return !scoreComplete.smStraight; }
+                if (id == "smStraightScore") { return !scoreComplete.smStraight; }
                 if (id == "lgStraightScore") { return !scoreComplete.lgStraight; }
                 if (id == "yahtzeeScore") { return !scoreComplete.yahtzee; }
                 if (id == "chanceScore") { return !scoreComplete.chance; }
@@ -396,7 +419,7 @@
             }
 
             function setScore(id) {
-                var score = document.getElementById(id).innerHTML;
+                var score = Number(document.getElementById(id).innerHTML);
 
                 if (id == "acesScore") { scoreComplete.aces = true; scores.aces = score; }
                 if (id == "twosScore") { scoreComplete.twos = true; scores.twos = score; }
@@ -408,9 +431,9 @@
                 if (id == "threeOfKindScore") { scoreComplete.threeOfKind = true; scores.threeOfKind = score; }
                 if (id == "fourOfKindScore") { scoreComplete.fourOfKind = true; scores.fourOfKind = score; }
                 if (id == "fullHouseScore") { scoreComplete.fullHouse = true; scores.fullHouse = score; }
-                if (id == "smStrightScore") { scoreComplete.smStraight = true; scores.smStraight = score; }
+                if (id == "smStraightScore") { scoreComplete.smStraight = true; scores.smStraight = score; }
                 if (id == "lgStraightScore") { scoreComplete.lgStraight = true; scores.lgStraight = score; }
-                if (id == "yahtzeeScore") { ScoreComplete.yahtzee = true; scores.yahtzee = score; }
+                if (id == "yahtzeeScore") { scoreComplete.yahtzee = true; scores.yahtzee = score; }
                 if (id == "chanceScore") { scoreComplete.chance = true; scores.chance = score; }
             }
 
@@ -429,8 +452,40 @@
                 if (scoreComplete.lgStraight == false) { document.getElementById("lgStraightScore").innerHTML = ""; }
                 if (scoreComplete.yahtzee == false) { document.getElementById("yahtzeeScore").innerHTML = ""; }
                 if (scoreComplete.chance == false) { document.getElementById("chanceScore").innerHTML = ""; }
+
+                for (i = 0; i < 5; i++) {
+                    var holdId = "hold" + (i + 1);
+                    var rollId = "roll" + (i + 1);
+                    bHolds[i] = false;
+                    document.getElementById(holdId).src = "blank.jpg";
+                    document.getElementById(rollId).src = "blank.jpg";
+                }
             }
 
+            function updateTotals() {
+                var topScore = scores.aces + scores.twos + scores.threes + scores.fours + scores.fives + scores.sixes;
+                var bonus = topScore >= 63 ? 35 : 0;
+                var finalTopScore = topScore + bonus;
+                var bottomScore = scores.threeOfKind + scores.fourOfKind + scores.fullHouse + scores.smStraight + scores.lgStraight + scores.yahtzee + scores.chance;
+                var grandTotal = finalTopScore + bottomScore;
+
+                document.getElementById("topTotal").innerHTML = topScore;
+                document.getElementById("bonus").innerHTML = bonus;
+                document.getElementById("finalTopTotal").innerHTML = finalTopScore;
+                document.getElementById("finalTopTotal2").innerHTML = finalTopScore;
+                document.getElementById("bottomTotal").innerHTML = bottomScore;
+                document.getElementById("grandTotal").innerHTML = grandTotal;
+            }
+
+            function checkForGameOver() {
+                if (scoreComplete.aces == true && scoreComplete.twos == true && scoreComplete.threes == true && scoreComplete.fours == true &&
+                   scoreComplete.fives == true && scoreComplete.sixes == true && scoreComplete.threeOfKind == true &&
+                   scoreComplete.fourOfKind == true && scoreComplete.fullHouse == true && scoreComplete.smStraight == true &&
+                   scoreComplete.lgStraight == true && scoreComplete.yahtzee == true && scoreComplete.chance == true) {
+                    var finalScore = document.getElementById("grandTotal").innerHTML;
+                    alert("Great Game!!! Final Score: " + finalScore);
+                }
+            }
         </script>
     </body>
 </html>
